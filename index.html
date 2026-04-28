@@ -2,54 +2,37 @@
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <title>3D 展示作業 - 最終修復版</title>
-    <script src="https://cdn.babylonjs.com/viewer/babylon.viewer.js"></script>
+    <title>我的 3D 模型展示網頁</title>
+    <script src="https://preview.babylonjs.com/viewer/babylon.viewer.js"></script>
     <style>
-        body { font-family: sans-serif; text-align: center; background: #f4f4f4; margin: 0; padding: 20px; }
-        .container { background: white; max-width: 800px; margin: auto; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        /* 務必給予明確的高度 */
-        #render-box { width: 100%; height: 500px; background: #222; border-radius: 8px; overflow: hidden; }
+        body { font-family: sans-serif; text-align: center; background-color: #f4f4f4; }
+        .container { margin: 20px auto; width: 80%; max-width: 800px; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        babylon { width: 100%; height: 500px; display: block; margin: 0 auto; }
+        iframe { width: 100%; height: 500px; border: none; }
+        h1 { color: #333; }
+        h2 { color: #555; border-bottom: 2px solid #eee; padding-bottom: 10px; }
     </style>
 </head>
 <body>
 
+    <h1>3D 模型展示作業</h1>
+
     <div class="container">
-        <h1>3D 模型展示作業</h1>
-        <div id="render-box">
-            </div>
+        <h2>1. Babylon Viewer (直接渲染自 GitHub)</h2>
+        <babylon model="HW2.glb" templates.main.params.fill-container="true"></babylon>
     </div>
 
-    <script>
-        // 等網頁與 Babylon 腳本完全準備好
-        window.addEventListener('load', function() {
-            const container = document.getElementById('render-box');
-           
-            // 使用 JavaScript 手動初始化 Viewer，不依賴 HTML 標籤屬性
-            const viewer = new BabylonViewer.DefaultViewer(container, {
-                model: {
-                    url: "HW2.glb" // 這裡先嘗試相對路徑
-                },
-                templates: {
-                    main: {
-                        params: {
-                            fillContainer: true
-                        }
-                    }
-                }
-            });
+    <div class="container">
+        <h2>2. Sketchfab 嵌入 (雲端播放器)</h2>
+        <div id="sketchfab-embed">
+            <iframe title="HW2 Model" 
+                    src="https://sketchfab.com/models/773fd9a1893942b4ae7c16c2918b122c/embed" 
+                    allow="autoplay; fullscreen; vr" 
+                    mozallowfullscreen="true" 
+                    webkitallowfullscreen="true">
+            </iframe>
+        </div>
+    </div>
 
-            // 監聽載入錯誤，如果相對路徑失效，自動切換到 GitHub 絕對路徑
-            viewer.onModelErrorObservable.add((error) => {
-                console.warn("相對路徑載入失敗，切換絕對路徑...");
-                viewer.loadModel({
-                    url: "https://yan950222-oss.github.io/3d-viewer-task/HW2.glb"
-                });
-            });
-
-            viewer.onModelLoadedObservable.add(() => {
-                console.log("模型成功載入並顯示！");
-            });
-        });
-    </script>
 </body>
 </html>
