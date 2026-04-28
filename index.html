@@ -2,15 +2,54 @@
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <title>我的 3D 模型展示網頁</title>
-    <script src="https://preview.babylonjs.com/viewer/babylon.viewer.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D 模型展示作業 - Babylon Viewer</title>
+   
+    <script src="https://cdn.babylonjs.com/viewer/babylon.viewer.js"></script>
+
     <style>
-        body { font-family: sans-serif; text-align: center; background-color: #f4f4f4; }
-        .container { margin: 20px auto; width: 80%; max-width: 800px; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        babylon { width: 100%; height: 500px; display: block; }
-        iframe { width: 100%; height: 500px; border: none; }
+        body {
+            font-family: "Microsoft JhengHei", sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            margin: 20px auto;
+            width: 90%;
+            max-width: 900px;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
         h1 { color: #333; }
-        h2 { color: #555; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        h2 {
+            color: #555;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+
+        /* 關鍵：必須給予明確的高度，否則 3D 模型會縮成一條線 */
+        .viewer-box {
+            width: 100%;
+            height: 500px;
+            margin-top: 15px;
+            background-color: #000; /* 載入前的背景色 */
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        babylon {
+            width: 100%;
+            height: 100%;
+        }
+
+        .sketchfab-embed-wrapper {
+            margin-top: 15px;
+        }
     </style>
 </head>
 <body>
@@ -18,21 +57,37 @@
     <h1>3D 模型展示作業</h1>
 
     <div class="container">
-        <h2>1. Babylon Viewer (直接渲染自 GitHub)</h2>
-        <babylon model="HW2.glb" templates.main.params.fill-container="true"></babylon>
+        <h2>1. Babylon Viewer (直接渲染)</h2>
+        <div class="viewer-box">
+            <babylon id="myViewer" model="HW2.glb" templates.main.params.fill-container="true"></babylon>
+        </div>
+        <p style="font-size: 0.9em; color: #888;">若模型未顯示，請確認 HW2.glb 與此網頁放在 GitHub 同一目錄下</p>
     </div>
 
     <div class="container">
-        <h2>2. Sketchfab 嵌入 (雲端播放器)</h2>
-        <div id="sketchfab-embed">
-            <iframe title="HW2 Model" 
-                    src="https://sketchfab.com/models/773fd9a1893942b4ae7c16c2918b122c/embed" 
-                    allow="autoplay; fullscreen; vr" 
-                    mozallowfullscreen="true" 
-                    webkitallowfullscreen="true">
+        <h2>2. Sketchfab 嵌入 (播放器)</h2>
+        <div class="sketchfab-embed-wrapper">
+            <iframe title="Sketchfab Model"
+                    frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true"
+                    allow="autoplay; fullscreen; xr-spatial-tracking"
+                    src="https://sketchfab.com/models/你的ID/embed">
             </iframe>
         </div>
+        <p style="font-size: 0.9em; color: #888;">注意：請確保模型在 Sketchfab 已點擊 "Publish" 發佈</p>
     </div>
+
+    <script>
+        // 額外保險：如果自動載入失敗，強制補載一次
+        BabylonViewer.viewerManager.onViewerAddedObservable.add(function (viewer) {
+            viewer.onEngineInitObservable.add(function () {
+                // 如果因為網路延遲導致沒抓到 model 屬性，這裡會強制補抓
+                if (!viewer.modelUrl) {
+                    console.log("偵測到模型網址缺失，執行手動補載...");
+                    viewer.loadModel({ url: "HW2.glb" });
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>
