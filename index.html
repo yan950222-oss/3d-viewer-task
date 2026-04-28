@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>我的 3D 模型展示網頁</title>
+    <script src="https://preview.babylonjs.com/viewer/babylon.viewer.js"></script>
+    <style>
+        body { font-family: sans-serif; text-align: center; }
+        .container { margin: 20px auto; width: 80%; max-width: 800px; }
+        babylon { width: 100%; height: 500px; display: block; }
+        iframe { width: 100%; height: 500px; border: none; }
+    </style>
+</head>
+<body>
+
+    <h1>3D 模型展示作業</h1>
+
+    <div class="container">
+        <h2>1. Babylon Viewer (直接渲染)</h2>
+        <babylon model="my_model.glb" templates.main.params.fill-container="true"></babylon>
+    </div>
+
+    <hr>
+
+    <div class="container">
+        <h2>2. Sketchfab 嵌入 (播放器)</h2>
+        <div id="sketchfab-embed">
+            <iframe title="Sketchfab Model" src="https://sketchfab.com/models/你的模型ID/embed"></iframe>
+            </div>
+    </div>
+
+</body>
+</html>
