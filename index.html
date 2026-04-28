@@ -5,10 +5,12 @@
     <title>我的 3D 模型展示網頁</title>
     <script src="https://preview.babylonjs.com/viewer/babylon.viewer.js"></script>
     <style>
-        body { font-family: sans-serif; text-align: center; }
-        .container { margin: 20px auto; width: 80%; max-width: 800px; }
+        body { font-family: sans-serif; text-align: center; background-color: #f4f4f4; }
+        .container { margin: 20px auto; width: 80%; max-width: 800px; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
         babylon { width: 100%; height: 500px; display: block; }
         iframe { width: 100%; height: 500px; border: none; }
+        h1 { color: #333; }
+        h2 { color: #555; border-bottom: 2px solid #eee; padding-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -16,17 +18,20 @@
     <h1>3D 模型展示作業</h1>
 
     <div class="container">
-        <h2>1. Babylon Viewer (直接渲染)</h2>
+        <h2>1. Babylon Viewer (直接渲染自 GitHub)</h2>
         <babylon model="HW2.glb" templates.main.params.fill-container="true"></babylon>
     </div>
 
-    <hr>
-
     <div class="container">
-        <h2>2. Sketchfab 嵌入 (播放器)</h2>
+        <h2>2. Sketchfab 嵌入 (雲端播放器)</h2>
         <div id="sketchfab-embed">
-            <iframe title="Sketchfab Model" src="https://sketchfab.com/models/773fd9a1893942b4ae7c16c2918b122c/embed"></iframe>
-            </div>
+            <iframe title="HW2 Model" 
+                    src="https://sketchfab.com/models/773fd9a1893942b4ae7c16c2918b122c/embed" 
+                    allow="autoplay; fullscreen; vr" 
+                    mozallowfullscreen="true" 
+                    webkitallowfullscreen="true">
+            </iframe>
+        </div>
     </div>
 
 </body>
