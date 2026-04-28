@@ -19,7 +19,20 @@
 
     <div class="container">
         <h2>1. Babylon Viewer (直接渲染自 GitHub)</h2>
-        <babylon model="HW2.glb.glb" templates.main.params.fill-container="true"></babylon>
+        <babylon id="myBabylonViewer" templates.main.params.fill-container="true"></babylon>
+
+<script>
+    // 確保網頁載入後才執行
+    window.addEventListener('DOMContentLoaded', function() {
+        const viewer = BabylonViewer.viewerManager.getViewerById('myBabylonViewer');
+        viewer.onInitObservable.add(() => {
+            viewer.loadModel({
+                url: "HW2.glb"
+            });
+        });
+    });
+</script>
+
     </div>
 
     <div class="container">
